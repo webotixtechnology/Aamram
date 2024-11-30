@@ -30,6 +30,6 @@ class City extends Model
     }
     public function district()
     {
-        return $this->belongsTo(District::class, 'district_id', ownerKey: 'id');
+        return $this->belongsTo(District::class, 'district_id', 'id');
     }
 }

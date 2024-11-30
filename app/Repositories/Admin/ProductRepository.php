@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Admin;
 
+
 use App\Models\Product;
 use App\Models\Product_details;
 use Illuminate\Http\Request;
@@ -24,73 +25,66 @@ class ProductRepository extends BaseRepository
      * Store a new product along with its details in the database.
      */
 
-     public function store(Request $request)
-{
-    DB::beginTransaction(); // Start a transaction to ensure data consistency
-
-    try {
-        // Step 1: Insert the product into the first table (products)
-        $product = [
-            'user_id'      => Auth::id(),
-            'update_id'    => $request->update_id,
-            'product_name' => $request->product_name,
-            'hsn_no'       => $request->hsn_no,
-            'moq'          => $request->moq,
-            'product_type' => $request->product_type,
-            'description'  => $request->description,
-            'cgst'         => $request->cgst,
-            'sgst'         => $request->sgst,
-            'igst'         => $request->igst,
-            'created_at'   => now(),
-            'updated_at'   => now(),
-        ];
-
-        // Insert the product into the products table using Eloquent and get the product model
-        $product = $this->model->create($product); // This will return the product with the generated ID
-
-        // Get the last inserted ID (product ID)
-        $lastInsertedId = $product->id;
-
-        // Step 2: Prepare product details data dynamically
-        $productData = [];
-
-        // Loop through product sizes, units, prices, and stock based on the request data
-        $cnt = $request->cnt; // Number of sizes
-        for ($i = 1; $i <= $cnt; $i++) {
-            $productData[] = [
-                'parentID'     =>  $lastInsertedId,  // Use the dynamically created product ID as parentID
-                'product_size' => $request->{"product_size{$i}"},
-                'unit'         => $request->{"unit{$i}"},
-                'dist_price'   => $request->{"dist_price{$i}"},
-                'bottom_price' => $request->{"bottom_price{$i}"},
-                'stock'        => $request->{"stock{$i}"},
-                'created_at'   => now(),
-                'updated_at'   => now(),
-                'update_id'    => Auth::id(),
+public function store($request)
+    {
+       
+        DB::beginTransaction();
+        try {
+           
+            $product = [
+                'user_id'      => Auth::id(),
+                'update_id'    => $request->update_id,
+                'product_name' => $request->product_name,
+                'hsn_no'       => $request->hsn_no,
+                'moq'          => $request->moq,
+                'product_type' => $request->product_type,
+                'description'  => $request->description,
+                'cgst'         => $request->cgst,
+                'sgst'         => $request->sgst,
+                'igst'         => $request->igst,
+                'created_at' => now()->format('Y-m-d'),
+                'updated_at' => now()->format('Y-m-d'),
             ];
-            DB::table('product_details')->insert($productData);
+           
+            // if ($request->hasFile('coach_cheque_img')) {
+            //     $imagePath = $this->imageStoreUpdate('', $request->coach_cheque_img);
+            //     if ($imagePath) {
+            //         $coachData['coach_cheque_img'] = $imagePath;
+            //     }
+            // }
+
+            //$productinsert = $this->model->create($product); // This will return the product with the generated ID
+
+            // Insert and get the ID
+            $productid = Product::insertGetId($product);            
+            $cnt = $request->cnt; // Number of sizes
+            for ($i = 1; $i <= $cnt; $i++) {
+                $productData = [
+                    'parentID'     =>  $productid, 
+                    'userID' =>Auth::id(),
+                    'product_size' => $request->{"product_size{$i}"},
+                    'unit'         => $request->{"unit{$i}"},
+                    'dist_price'   => $request->{"dist_price{$i}"},
+                    'bottom_price' => $request->{"bottom_price{$i}"},
+                    'stock'        => $request->{"stock{$i}"},
+                    'created_at' => now()->format('Y-m-d'),
+                    'updated_at' => now()->format('Y-m-d'),
+                    'update_id'    => Auth::id(),
+                ];
+
+                DB::table('product_details')->insert($productData);
+            }
+    
+            DB::commit();
+            return redirect()->route('admin.product.index')->with('success', __('Product Created Successfully'));
+        } catch (Exception $e) {
+
+            DB::rollback();
+
+            throw $e;
         }
-
-        // Step 3: Insert product details into the second table (product_details)
-        
-
-        // Commit the transaction if everything is successful
-        DB::commit();
-
-        // Return success response
-        return to_route('admin.product.index')->with('success', __('Product Created Successfully'));
-
-    } catch (\Exception $e) {
-        // Rollback the transaction if something goes wrong
-        DB::rollback();
-
-        // Log the error for debugging
-        // Log::error('Error in product creation: ' . $e->getMessage());
-
-        // Optionally, you can return a failure response
-        return back()->with('error', 'Failed to create product: ' . $e->getMessage());
     }
-}
+
 
     /**
      * Update a product and its details in the database.

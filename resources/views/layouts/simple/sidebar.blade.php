@@ -6,8 +6,9 @@
                 <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i>
                 </div>
             </div>
-            <div class="logo-icon-wrapper"><a href="{{ route('admin.dashboard') }}"><img class="img-fluid"
-                        src="{{ asset('assets/images/logo/logo-icon.png') }}" alt=""></a></div>
+            <!-- <div class="logo-icon-wrapper"><a href="{{ route('admin.dashboard') }}"><img class="img-fluid"
+                        src="{{ asset('assets/images/logo/logo-icon.png') }}" alt=""></a></div> -->
+          <div class="logo-icon-wrapper"><a href="{{ route('admin.dashboard') }}">AAMRAM</a></div> 
             <nav class="sidebar-main">
                 <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
                 <div id="sidebar-menu">
@@ -31,16 +32,16 @@
                                 @can('user.index')
                                     <li><a href="{{ route('admin.user.index') }}">User</a></li>
                                 @endcan
-                                @can('user.index')
+                            @can('user.index')
                                     <li><a href="{{ route('admin.district.index') }}">District</a></li>
                                     @endcan
                                     @can('user.index')
-                            <li><a href="{{ route('admin.city.index') }}">City</a></li>
-                                @endcan
+                                    <li><a href="{{ route('admin.city.index') }}">City</a></li>
+                                    @endcan
+
                             @can('user.index')
                             <li><a href="{{ route('admin.product.index') }}">Product</a></li>
                                 @endcan
-                              
                             </ul>
                         </li>
 
@@ -50,46 +51,47 @@
                                 <use href="{{ asset('assets/svg/icon-sprite.svg#fill-home') }}"></use>
                             </svg><span class="lan-7-1">Master</span></a>
                             <ul class="sidebar-submenu">
+                                
+                             
+        
+                           
                           
                             </ul>
                     </li> -->
+
                     <li class="sidebar-list"><a class="sidebar-link sidebar-title"
                         href="javascript:void(0)">
                         <svg class="stroke-icon">
                             <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-form') }}"></use>
-                        </svg><span class="lan-7-1">Registration</span></a> inward
+                        </svg><span class="lan-7-1">Inword</span></a>
+                        <ul class="sidebar-submenu">
+
+                      
                         
+                        </ul>
                 </li>
                     <li class="sidebar-list"><a class="sidebar-link sidebar-title"
                         href="javascript:void(0)">
                         <svg class="stroke-icon">
                             <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-file') }}"></use>
-                        </svg><span class="lan-7-1">Tournament</span></a>
+                        </svg><span class="lan-7-1">Sale Order</span></a>
                         <ul class="sidebar-submenu">
                           
                         </ul>
                     </li>
-
+                   
                     <li class="sidebar-list"><a class="sidebar-link sidebar-title"
                         href="javascript:void(0)">
                         <svg class="stroke-icon">
                             <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-board') }}"></use>
-                        </svg><span class="lan-7-1">Inventory</span></a>
+                        </svg><span class="lan-7-1">Outword</span></a>
                         <ul class="sidebar-submenu">
                            
                            
                         </ul>
                     </li>
 
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title"
-                        href="javascript:void(0)">
-                        <svg class="stroke-icon">
-                            <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-home') }}"></use>
-                        </svg><span class="lan-7-1">Academy</span></a>
-                        <ul class="sidebar-submenu">
-                          
-                        </ul>
-                    </li>
+                  
                         
                     </ul>
                     <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>

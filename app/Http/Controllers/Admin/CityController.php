@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Admin\CityRepository;
 use App\Http\Requests\Admin\CreateCityRequest;
 use App\Http\Requests\Admin\UpdateCityRequest;
+//use App\Http\Controllers\Admin\District;
 
 class CityController extends Controller
 {
@@ -71,7 +72,7 @@ class CityController extends Controller
     }
 
 
- public function getDistricts(Request $request)
+    public function getDistricts(Request $request)
     {
         if ($request->has('state_id')) {
             $districts = District::where("state_id", $request->state_id)->get(["district_name", "id"]);
@@ -79,8 +80,6 @@ class CityController extends Controller
         }
         return response()->json(['districts' => []], 400); // Return an empty response if state_id is missing
     }
-
-
     /**
      * Store a newly created resource in storage.
      * @param Request $request
