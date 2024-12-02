@@ -1,17 +1,8 @@
 
-<div class="col-lg-12 card">
-    <div class="card-body">
-        <input type="hidden" name="PTask" id="PTask" value="add" />
-        <input type="hidden" name="id" id="id" value="{{ old('id') }}" />
-        <input type="hidden" name="menuselect" id="menuselect" value="{{ old('menuselect') }}">
-        <input type="hidden" name="type" id="type" value="{{ old('formtype') }}">
-        <input type="hidden" name="pageurl" id="pageurl" value="{{ url()->current() }}">
-        <input type="hidden" name="leadID" id="leadID" value="{{ old('leadID') }}">
-        <input type="hidden" name="userID" id="userID" value="{{ old('userID') }}">
-
-       
-        <div class="row">
-            <div class="col-md-9" style="border-right:1px solid #8080801c;">
+<div class="form theme-form">
+    <!-- General Information Section -->
+      <!-- General Information Section -->
+      <div class="row">
        
 
         <div class="row">
@@ -33,6 +24,13 @@
                 <div class="form-floating form-floating-outline">
                     <input type="text" id="billdate" name="billdate" value="" class="form-control required datepicker" data-inputmask="'mask': '99-99-9999'">
                     <label>Bill Date <span class="required" style="color:red;">*</span></label>
+                </div>
+            </div>
+
+            <div class="form-group col-md-2">
+                <div class="form-floating form-floating-outline">
+                    <input type="text" id="location" name="location" value="" class="form-control required datepicker" data-inputmask="'mask': '99-99-9999'">
+                    <label>Location <span class="required" style="color:red;">*</span></label>
                 </div>
             </div>
         </div>
@@ -60,39 +58,37 @@
                             <pre>
                     <?php
                     
-                    print_r($products);
-                    die;
+                
                     ?></pre>
-                            @foreach ($products as $key => $product)
-                            <tr id="row_{{ $key }}">
-                            <input type="hidden" name="row_id_{{ $key }}" id="row_id_{{ $key }}" value="{{ $product }}">
-
-                            
-                            <td>
-                                    <select class="select2" id="types{{ $key }}" name="types{{ $key }}" data-placeholder="Select Types" style="height: 37px; width:100%;" required>
-                                        <option></option>
+                           
+                           <tr id="row_1">
+                                    <td>
+                                    <select class="form-select select2" id="types1" name="types1" data-placeholder="Select Types">
+                                    <option></option>
                                         <option value="Product">Product</option>
                                         <option value="Service">Service</option>
+                                   </select>
+                                    </td>
+                              
+                                <td id="product_div">
+                                    <select class="select2" id="services1" name="services1" data-placeholder="Select Services/Products" style="height: 37px; width:100%;" required>
+                                    <option value=""></option>
+                            @php
+                                $pro_masters = DB::table('products')->get();
+                            @endphp
+                            @foreach ($pro_masters as $pro_master)
+                                <option value="{{ $pro_master->id }}">{{ $pro_master->product_name }}</option>
+                            @endforeach
                                     </select>
                                 </td>
-                                <td id="product_div_{{ $key }}">
-                                    <select class="select2" id="services{{ $key }}" name="services{{ $key }}" data-placeholder="Select Services/Products" style="height: 37px; width:100%;" required>
+                                <td id="size_div">
+                                    <select class="select2 required" id="size1" name="size1" data-placeholder="Select Size" style="height: 37px; width:100%;" required>
                                         <option value=""></option>
-                                        @foreach ($products as $info)
-                                        <option value="{{ $info->id }}">{{ $info->product_name }}</option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                                <td id="size_div_{{ $key }}">
-                                    <select class="select2 required" id="size{{ $key }}" name="size{{ $key }}" data-placeholder="Select Size" style="height: 37px; width:100%;" required>
-                                        <option value=""></option>
-                                        @foreach ($sizes as $info)
-                                        <option value="{{ $info['id'] }}">{{ $info['product_size'] }}</option>
-                                        @endforeach
+                                       
                                     </select>
                                 </td>
                                 <td>
-                                <select class="select2" id="stage" name="stage" data-placeholder="Select Stage" style="height: 37px; width:100%;">
+                                <select class="select2" id="stage1" name="stage1" data-placeholder="Select Stage" style="height: 37px; width:100%;">
                                         <option></option>
                                         <option value="Semi Ripple">Semi Ripple</option> 
                                         <option value="Green">Green</option> 							 
@@ -100,21 +96,21 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <textarea name="description{{ $key }}" id="description{{ $key }}" class="form-control input-sm" style="width:100%;"></textarea>
+                                    <textarea name="description1" id="description1" class="form-control input-sm" style="width:100%;"></textarea>
                                 </td>
                                 <td>
-                                    <input type="text" id="quantity{{ $key }}" name="quantity{{ $key }}" class="form-control smallinput" required>
+                                    <input type="text" id="quantity1" name="quantity1" class="form-control smallinput" required>
                                 </td>
                           
-                                <td id="rmv_{{ $key }}">
-                                    <a onClick="cancelrow('{{ $key }}');" style="cursor: pointer;" id="remove{{ $key }}" class="delete" title="Delete">
-                                        <i class='fa fa-trash-o'></i>
-                                    </a>
-                                </td>
-                             
+                                <td>
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteRow(1)">Delete</button>
+                                    </td>
+                                    <input type="hidden" name="cnt" id="cnt" value="1">
+
                             </tr>
-                            @endforeach
+                           
                         </tbody>
+                        
                     </table>
                     <div class="row form-group">
                         <div class="col-md-12">

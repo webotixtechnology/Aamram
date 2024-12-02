@@ -74,10 +74,14 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $product->load('details');
-        return view('admin.product.edit', compact('product'));
+        $pro_list = Product::pluck(id);
+        //print_r($pro_list);
+        
+        return view('admin.product.edit', ['pro_list' => $pro_list],compact('pro_list'));
+
     }
 
+   
     /**
      * Update the specified product and its details.
      *

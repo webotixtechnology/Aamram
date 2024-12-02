@@ -32,13 +32,13 @@
             <div class="col-xl-12">
                 <div class="card height-equal">
                     <div class="card-header">
-                        <h4>Edit District</h4>
+                        <h4>Edit Product</h4>
                     </div>
                     <div class="card-body">
-                        <form class="row g-3 custom-input" id="userForm" action="{{ route('admin.district.update', $row->id) }}" method="POST" enctype="multipart/form-data">
+                        <form class="row g-3 custom-input" id="userForm" action="{{ route('admin.product.update', $pro_list->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            @method('PUT')
-                            @include('admin.district.fields') <!-- Make sure you have the district fields -->
+                           
+                            @include('admin.product.fields') <!-- Make sure you have the district fields -->
                         </form>
                     </div>
                 </div>

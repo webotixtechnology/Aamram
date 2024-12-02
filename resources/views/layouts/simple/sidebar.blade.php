@@ -45,6 +45,20 @@
                             </ul>
                         </li>
 
+                        <!-- <li class="sidebar-list"><a class="sidebar-link sidebar-title"
+                            href="javascript:void(0)">
+                            <svg class="stroke-icon">
+                                <use href="{{ asset('assets/svg/icon-sprite.svg#fill-home') }}"></use>
+                            </svg><span class="lan-7-1">Master</span></a>
+                            <ul class="sidebar-submenu">
+                                
+                             
+        
+                           
+                          
+                            </ul>
+                    </li> -->
+
                     @can('user.index')
                     <li class="sidebar-list"><a class="sidebar-link sidebar-title"
                      href="{{ route('inward.index') }}">
@@ -53,7 +67,8 @@
                         </svg><span class="lan-7-1">Inward</span></a>
                        </li>
                 @endcan
-            
+
+                   
                     <li class="sidebar-list"><a class="sidebar-link sidebar-title"
                         href="javascript:void(0)">
                         <svg class="stroke-icon">
