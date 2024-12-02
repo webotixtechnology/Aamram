@@ -27,6 +27,10 @@ Route::group(['middleware' => ['auth'], 'as' => 'admin.', 'prefix' => 'admin'], 
 
    Route::resource('city', App\Http\Controllers\Admin\CityController::class );
 
+
+   Route::resource('customer', App\Http\Controllers\Admin\CustomerController::class );
+
+
     // User_profile
     Route::get('edit-profile', [App\Http\Controllers\Admin\UserController::class, 'editProfile'])->name('user.edit-profile');
   

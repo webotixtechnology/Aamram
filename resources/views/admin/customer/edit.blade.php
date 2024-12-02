@@ -11,7 +11,7 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-6">
-                    <h4>District</h4>
+                    <h4>City</h4>
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
@@ -19,7 +19,7 @@
                                 <svg class="stroke-icon">
                                     <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-home') }}"></use>
                                 </svg></a></li>
-                        <li class="breadcrumb-item">District</li>
+                        <li class="breadcrumb-item">City</li>
                         <li class="breadcrumb-item active">Edit</li>
                     </ol>
                 </div>
@@ -32,17 +32,14 @@
             <div class="col-xl-12">
                 <div class="card height-equal">
                     <div class="card-header">
-                        <h4>Edit Product</h4>
+                        <h4>Edit City</h4>
                     </div>
                     <div class="card-body">
-                        <form class="row g-3 custom-input" id="userForm" action="{{ route('admin.product.update', $pro_list->id) }}" method="POST" enctype="multipart/form-data">
+                        <form class="row g-3 custom-input" id="userForm" action="{{ route('admin.customer.update', $customer->id) }}" method="POST" enctype="multipart/form-data"> 
+                            
                             @csrf
-<<<<<<< Updated upstream
-                           
-=======
                             @method('PUT')
->>>>>>> Stashed changes
-                            @include('admin.product.fields') <!-- Make sure you have the district fields -->
+                            @include('admin.customer.fields') <!-- Make sure you have the district fields -->
                         </form>
                     </div>
                 </div>
