@@ -45,3 +45,5 @@ Route::group(['middleware' => ['auth'], 'as' => 'admin.', 'prefix' => 'admin'], 
 
 
 });
+
+Route::resource('inward', App\Http\Controllers\inward\InwardController::class);

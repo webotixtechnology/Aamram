@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Product;
+use App\Models\inward;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\EloquentDataTable;
@@ -10,7 +10,7 @@ use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
-class ProductDataTable extends DataTable
+class InwardDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -20,24 +20,27 @@ class ProductDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->setRowId('id')
-            ->editColumn('created', function ($row) {
-                return \Carbon\Carbon::parse($row->created)->format('d-m-Y'); // Example: formatting the created date
+            ->setRowId('ID')
+            ->editColumn('PurchaseDate', function ($row) {
+                return \Carbon\Carbon::parse($row->PurchaseDate)->format('d-m-Y'); // Example: formatting the Purchase Date
+            })
+            ->editColumn('billdate', function ($row) {
+                return \Carbon\Carbon::parse($row->billdate)->format('d-m-Y'); // Formatting Bill Date
             })
             ->editColumn('action', function ($row) {
                 return view('admin.inc.action', [
-                    'edit'   => 'admin.product.edit',
-                    'delete' => 'admin.product.destroy',
+                    'edit'   => 'admin.inward.edit',
+                    'delete' => 'admin.inward.destroy',
                     'data'   => $row
                 ]);
             })
-            ->rawColumns(['action', 'created']); // Adjust rawColumns if you need to make other columns raw
+            ->rawColumns(['action', 'PurchaseDate', 'billdate']); // Mark these columns as raw for special formatting
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Product $model): QueryBuilder
+    public function query(inward $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -48,7 +51,7 @@ class ProductDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('product-table')
+            ->setTableId('inward-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(1)
@@ -76,14 +79,10 @@ class ProductDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->title(__('ID'))->orderable(true)->searchable(true),
-            Column::make('product_name')->title(__('Product Name'))->orderable(true)->searchable(true),
-            Column::make('product_code')->title(__('Product Code'))->orderable(true)->searchable(true),
-            Column::make('hsn_no')->title(__('HSN No'))->orderable(true)->searchable(true),
-            Column::make('cgst')->title(__('CGST'))->orderable(true)->searchable(false),
-            Column::make('sgst')->title(__('SGST'))->orderable(true)->searchable(false),
-            Column::make('igst')->title(__('IGST'))->orderable(true)->searchable(false),
-            Column::make('created')->title(__('Created Date'))->orderable(true)->searchable(false),
+            Column::make('ID')->title(__('ID'))->orderable(true)->searchable(true),
+            Column::make('Bill_No')->title(__('Bill No'))->orderable(true)->searchable(true),
+            Column::make('PurchaseDate')->title(__('Purchase Date'))->orderable(true)->searchable(true),
+            Column::make('billdate')->title(__('Bill Date'))->orderable(true)->searchable(false),
             Column::computed('action')
                 ->title(__('Action'))
                 ->exportable(false)
@@ -99,12 +98,6 @@ class ProductDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Product_' . date('YmdHis');
+        return 'Inward_' . date('YmdHis');
     }
 }
-
-
-
-
-
-

@@ -11,7 +11,7 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-6">
-                    <h4>Product</h4>
+                    <h4>Inward</h4>
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
@@ -19,7 +19,7 @@
                                 <svg class="stroke-icon">
                                     <use href="{{ asset('assets/svg/icon-sprite.svg#stroke-home') }}"></use>
                                 </svg></a></li>
-                        <li class="breadcrumb-item">Product</li>
+                        <li class="breadcrumb-item">Inward</li>
                         <li class="breadcrumb-item active">Create</li>
                     </ol>
                 </div>
@@ -32,15 +32,13 @@
             <div class="col-xl-12">
                 <div class="card height-equal">
                     <div class="card-header">
-                        <h4>Add Product</h4>
+                        <h4>Inward</h4>
                     </div>
                     <div class="card-body">
-                        <form class="form theme-form" id="roleForm" action="{{ route('admin.product.store') }}" method="POST" enctype="multipart/form-data">
+                        <form class="form theme-form" id="roleForm" action="{{ route('inward.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                          @include('admin.product.fields');
-                                                   
-                        </form>
-                    </div>
+                           @include(' inward.fields');
+                    </div> 
                 </div>
             </div>
         </div>
@@ -48,4 +46,4 @@
     <!-- Container-fluid Ends-->
 @endsection
 
- 
+
